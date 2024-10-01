@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  --fluid-height: 40;
+  --fluid-first-width: 100;
+  --fluid-second-width: 80;
+  --fluid-container-width: 200;
+  --fluid-button-height: 40px;
+  --fluid-button-first-width: 100px;
+  --fluid-button-second-width: 80px;
+  --fluid-button-container-width: 200px;
+  --fluid-button-coverer-x: calc(
+    (var(--fluid-container-width) / 2) + 
+    ((var(--fluid-first-width) - var(--fluid-second-width)) / 2) - 
+    (var(--fluid-height) / 2));
+  --fluid-button-coverer-y: calc(
+    sqrt(
+      pow( var(--fluid-height), 2) - pow( (var(--fluid-button-coverer-x) - var(--fluid-first-width) + var(--fluid-height)), 2)
+    )
+  );  
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+section {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.switch-image {
+  position: absolute;
+  opacity: 0;
+}
+
+.switch-image.active {
+  animation-name: image-switch;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+}
+
+/**
+* FLUID FLASK BUTTONS
+**/
+
+.fluid-button-container {
+  width:var(--fluid-button-container-width);
+  height: 40px;
+}
+
+
+.fluid-button-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.fluid-button{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--fluid-button-second-width) + 0.5px);
+  height: var(--fluid-button-height);
+  background: transparent;
+  border-radius: 999px;
+}
+
+.fluid-button:nth-child(1){
+  width: calc(var(--fluid-button-first-width) + 0.5px);
+}
+
+.fluid-coverer{
+  position: absolute;
+  left: calc(var(--fluid-button-coverer-x) * 1px);
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  background: #020617;
+}
+
+.fluid-button-cover{
+  position: absolute;
+  height: var(--fluid-button-height);
+  width: var(--fluid-button-height);
+}
+
+.fluid-button-cover.button-cover-3 {
+  background-image: radial-gradient(circle 40px at left center, transparent 50%, #020617 0);
+  right: calc(-100% + (var(--fluid-button-height) / 2));
+  width: 100%;
+  height: calc(var(--fluid-button-height));
+}
+
+.fluid-button-cover.button-cover-1-1 {
+  background-image: radial-gradient(circle 40px at -10px -10px, transparent 55%, #020617 0);
+  width: 10px;
+  right: 2px;
+  bottom: -30px;
+}
+
+.fluid-button-cover.button-cover-1-2 {
+  background-image: radial-gradient(circle 40px at -10px 50px, transparent 55%, #020617 0);
+  width: 10px;
+  right: 2px;
+  top: -30px;
+}
+
+.fluid-button-cover.button-cover-2 {
+  background-image: radial-gradient(circle 40px at right center, transparent 50%, #020617 0);
+  left: calc((var(--fluid-button-height) / 2) * -1);
+}
+
+.fluid-button-cover.button-cover-4-1 {
+  background-image: radial-gradient(circle 40px at 20px -10px, transparent 55%, #020617 0);
+  width: 10px;
+  left: 2px;
+  bottom: -30px;
+}
+
+.fluid-button-cover.button-cover-4-2 {
+  background-image: radial-gradient(circle 40px at 20px 50px, transparent 55%, #020617 0);
+  width: 10px;
+  left: 2px;
+  top: -30px;
+}
+
+.fluid-coverer.coverer-top{
+  top: calc(-1px * var(--fluid-button-coverer-y));
+}
+
+.fluid-coverer.coverer-bottom{
+  bottom: calc(-1px * var(--fluid-button-coverer-y));
+}
+
+.fade-in-text {
+  animation: fadeInText 1s ease-in-out;
+}
+
+.website-link::after {
+  content: '';
+  margin-top: -2px;
+  height: 1px;
+  width: 100%;
+  display: block;
+  transform: scaleX(0);
+  transform-origin: 0% 50%;
+  background-image: inherit;
+}
+
+.website-link:hover::after {
+  transform: scaleX(1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.backgroundClipping {
+  -webkit-background-clip: text;
+}
+
+
+/**
+* ANIMATION KEYFRAMES
+**/
+
+@keyframes fadeInText {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes image-switch {
+  0% {
+    opacity: 0;
+    transform: translateY(+50px);
+  }
+  40% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
